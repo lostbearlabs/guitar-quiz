@@ -8,7 +8,7 @@ function NoteQuiz() {
 
     return (
         <div>
-            <div>TODO - THIS IS THE NOTE QUIZ</div>
+            <div>Generate a note, and then see if you can identify it.</div>
             <Fretboard played={chord}/>
             <NoteChooser setChord={setChord}/>
         </div>

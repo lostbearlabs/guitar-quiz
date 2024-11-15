@@ -1,15 +1,14 @@
 import React from 'react';
 import {useState} from 'react';
 import {useEffect} from 'react';
-import {triad} from "./triad.js";
-import {getKey} from "./triad.js";
+import {getNote} from "./triad.js";
+import {singleNoteChord} from "./triad.js";
 
 function NoteChooser({setChord}) {
 
     const [position, setPosition] = useState(null);
-    const [inversion, setInversion] = useState(null);
-    const [key, setKey] = useState(null);
-    const [stringSet, setStringSet] = useState(null);
+    const [string, setString] = useState(null);
+    const [note, setNote] = useState(null);
 
     const handleChangeChord = (newChord) => {
         setChord(newChord);
@@ -18,22 +17,17 @@ function NoteChooser({setChord}) {
     const update = () => {
 
         // Clear the quiz buttons
-        document.querySelectorAll('button.triad-button').forEach((btn) => {
-            btn.style.backgroundColor = '';
-        });
-        document.querySelectorAll('button.key-button').forEach((btn) => {
+        document.querySelectorAll('button.note-button').forEach((btn) => {
             btn.style.backgroundColor = '';
         });
 
         // Pick new random values.
         let newPosition = Math.floor(Math.random() * 11)
         setPosition(newPosition);
-        let newInversion = Math.floor(Math.random() * 3)
-        setInversion(newInversion);
-        let newStringSet = Math.floor(Math.random() * 4)
-        setStringSet(newStringSet);
+        let newString = Math.floor(Math.random() * 6)
+        setString(newString);
 
-        setKey(getKey(newPosition, newInversion, newStringSet));
+        setNote(getNote(newPosition, newString));
     };
 
     // Run update when component is initialized.
@@ -43,23 +37,19 @@ function NoteChooser({setChord}) {
 
     // Render component when properties change.
     useEffect(() => {
-        if (position !== null && inversion !== null && stringSet !== null) {
+        if (string !== null) {
 
             // Find the triad described by those values.
-            let chord = triad(position, inversion, stringSet);
+            let chord = singleNoteChord(position, string);
 
             // Update our parent with the new triad.
             handleChangeChord(chord);
         }
-    }, [position, inversion, stringSet]);
+    }, [position, string, note]);
 
-
-    const getTriadButtonStyle = (buttonIndex, inversion) => ({
-        backgroundColor: buttonIndex === inversion ? 'green' : 'red'
-    });
-
-    const getKeyButtonStyle = (buttonIndex, inversion) => ({
-        backgroundColor: buttonIndex === key ? 'green' : 'red'
+    
+    const getNoteButtonStyle = (buttonIndex, note) => ({
+        backgroundColor: buttonIndex === note ? 'green' : 'red'
     });
 
 
@@ -71,34 +61,18 @@ function NoteChooser({setChord}) {
                 Next Note
             </button>
             <div style={{marginTop: '10px'}}>
-                {['1-3-5', '3-5-1', '5-1-3'].map((label, idx) => (
-                    <button
-                        key={label}
-                        className="triad-button"
-                        onClick={() => {
-                            const newStyle = getTriadButtonStyle(idx, inversion);
-                            Object.assign(event.target.style, newStyle);
-                        }}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <div style={{marginTop: '10px'}}>
                 {['A', 'A\u266F/B\u266D', 'B', 'C', 'C\u266F/D\u266D', 'D', 'D\u266F/E\u266D', 'E', 'F', 'F\u266F/G\u266D', 'G', 'G\u266F/A\u266D'].map((label, idx) => (
                     <button
                         key={label}
-                        className="key-button"
+                        className="note-button"
                         onClick={() => {
-                            const newStyle = getKeyButtonStyle(idx, inversion);
+                            const newStyle = getNoteButtonStyle(idx, note);
                             Object.assign(event.target.style, newStyle);
                         }}
                     >
                         {label}
                     </button>
                 ))}
-            </div>
-            <div>
             </div>
         </div>
     )

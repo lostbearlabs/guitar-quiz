@@ -4,6 +4,13 @@ const rotateRight = (arr, places) => {
     return [...arr.slice(len - offset), ...arr.slice(0, len - offset)];
 };
 
+/**
+ * The note values of each empty string, with the convention that
+ * A=0, A#=1, ... G#=11
+ */
+let emptyStrings = [7, 0, 5, 10, 2, 7]
+const NOTES_PER_OCTAVE = 12
+
 export function triad(position, inversion, stringSet) {
 
     let x = position
@@ -43,7 +50,6 @@ export function triad(position, inversion, stringSet) {
 
 //                 {['A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab'].map((label, idx) => (
 export function getKey(position, inversion, stringSet) {
-    let emptyStrings = [7, 0, 5, 10, 2, 7]
     let trad = triad(position, inversion, stringSet)
 
     let deltaString = 0
@@ -53,9 +59,19 @@ export function getKey(position, inversion, stringSet) {
         deltaString = 1
     }
     let string = stringSet + deltaString
-    let key = (emptyStrings[string] + trad[string]) % 12
+    let key = (emptyStrings[string] + trad[string]) % NOTES_PER_OCTAVE
 
     // console.log("position=" + position + " inversion=" + inversion + " stringSet=" + stringSet + " key=" + key + " trad=" + trad + " deltaString=" + deltaString + " string=" + string)
 
     return key
+}
+
+export function getNote(position, string) {
+    return (emptyStrings[string] + position) % NOTES_PER_OCTAVE
+}
+
+export function singleNoteChord(position, string) {
+    let chord = [-1, -1, -1, -1, -1, -1]
+    chord[string] = position
+    return chord
 }
