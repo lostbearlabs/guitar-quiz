@@ -1,18 +1,30 @@
-import {useState} from 'react'
+import React from 'react';
 import './App.css'
-import Fretboard from "./Fretboard.jsx";
-import TriadChooser from "./TriadChooser.jsx";
+import Home from "./Home.jsx";
+import TriadQuiz from "./TriadQuiz.jsx";
+import NoteQuiz from "./NoteQuiz.jsx";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-function App() {
-    const [chord, setChord] = useState([-1, -1, -1, -1, -1, -1]);
-
+const App = () => {
     return (
-        <div>
-            <div>Generate a triad, then see if you can identify its inversion and/or key!</div>
-            <Fretboard played={chord}/>
-            <TriadChooser setChord={setChord}/>
-        </div>
-    )
-}
+        <Router>
+            <div>
+                {/* Navigation Bar */}
+                <nav>
+                    <Link to="/">Home</Link>
+                    <Link to="/note">Notes</Link>
+                    <Link to="/triad">Triads</Link>
+                </nav>
+
+                {/* Page Content */}
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/triad" element={<TriadQuiz />} />
+                    <Route path="/note" element={<NoteQuiz />} />
+                </Routes>
+            </div>
+        </Router>
+    );
+};
 
 export default App
