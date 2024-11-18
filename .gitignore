@@ -9,11 +9,7 @@ lerna-debug.log*
 
 node_modules
 
-# The dist module is commited because we publish it via github pages
-# to lostbearlabs.com/guitar-quiz.
-#
-# dist
-
+dist
 dist-ssr
 *.local
 
