@@ -22,6 +22,10 @@ const App = () => {
                     <Route path="/triad" element={<TriadQuiz />} />
                     <Route path="/note" element={<NoteQuiz />} />
                 </Routes>
+
+                <div className='footer'>
+                    Guitar Quiz Copyright © 2024-2025 Eric R. Johnson
+                </div>
             </div>
         </Router>
     );

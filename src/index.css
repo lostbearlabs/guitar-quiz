@@ -13,6 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.footer {
+  font-size: 0.8em;
+  margin-top: 2em;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
