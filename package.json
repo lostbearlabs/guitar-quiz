@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "echo 'copy to ./docs for publication by github pages' && mkdir -p docs && cp -r dist/* docs/",
     "lint": "eslint .",
     "preview": "vite preview"
   },
