@@ -106,7 +106,7 @@ function TriadChooser({setChord}) {
 
             </FrameBox>
 
-            <FrameBox label='Identify Note'>
+            <FrameBox label='Identify Triad'>
 
                 <div style={{marginTop: '20px'}}>
                     {['1-3-5', '3-5-1', '5-1-3'].map((label, idx) => (
