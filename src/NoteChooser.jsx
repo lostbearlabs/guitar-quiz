@@ -3,12 +3,14 @@ import {useState} from 'react';
 import {useEffect} from 'react';
 import {getNote} from "./triad.js";
 import {singleNoteChord} from "./triad.js";
+import FrameBox from "./FrameBox.jsx";
 
 function NoteChooser({setChord}) {
 
     const [position, setPosition] = useState(null);
     const [string, setString] = useState(null);
     const [note, setNote] = useState(null);
+    const [fretRange, setFretRange] = useState(null);
 
     const handleChangeChord = (newChord) => {
         setChord(newChord);
@@ -22,8 +24,17 @@ function NoteChooser({setChord}) {
         });
 
         // Pick new random values.
-        let newPosition = Math.floor(Math.random() * 11)
+        let minPosition = 0
+        let maxPosition = 11
+        if (fretRange === 'Low') {
+            maxPosition = 6
+        } else if (fretRange === 'High') {
+            minPosition = 6
+        }
+        let newPosition = minPosition + Math.floor(Math.random() * (maxPosition-minPosition))
         setPosition(newPosition);
+
+
         let newString = Math.floor(Math.random() * 6)
         setString(newString);
 
@@ -47,33 +58,58 @@ function NoteChooser({setChord}) {
         }
     }, [position, string, note]);
 
-    
+
     const getNoteButtonStyle = (buttonIndex, note) => ({
         backgroundColor: buttonIndex === note ? 'green' : 'red'
     });
 
 
     return (
-        <div>
-            <button onClick={() => {
-                update();
-            }}>
-                Next Note
-            </button>
-            <div style={{marginTop: '10px'}}>
-                {['A', 'A\u266F/B\u266D', 'B', 'C', 'C\u266F/D\u266D', 'D', 'D\u266F/E\u266D', 'E', 'F', 'F\u266F/G\u266D', 'G', 'G\u266F/A\u266D'].map((label, idx) => (
-                    <button
-                        key={label}
-                        className="note-button"
-                        onClick={() => {
-                            const newStyle = getNoteButtonStyle(idx, note);
-                            Object.assign(event.target.style, newStyle);
-                        }}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
+        <div style={{width: '800px', alignSelf: 'center', margin: 'auto'}}>
+            <FrameBox label='Generate Note'>
+                <div style={{
+                    display: 'flex', alignItems: 'left',
+                    justifyContent: 'left', marginTop: '10px',
+                    padding: '10px', verticalAlign: 'middle'
+                }}>
+
+                    <div style={{paddingLeft: '125px', verticalAlign: 'middle'}}>
+                        <label htmlFor="fretRange">Fret range: </label>
+                        <select id="fretRange" value={fretRange} onChange={(e) => setFretRange(e.target.value)}>
+                            <option value="Low" selected={true}>Low</option>
+                            <option value="High">High</option>
+                            <option value="Full">Full</option>
+                        </select>
+                    </div>
+
+                    <div style={{paddingLeft: '50px'}}>
+
+                        <button onClick={() => {
+                            update();
+                        }}>
+                            Next Note
+                        </button>
+                    </div>
+                </div>
+
+            </FrameBox>
+
+            <FrameBox label='Identify Note'>
+                <div style={{marginTop: '20px'}}>
+                    {['A', 'A\u266F/B\u266D', 'B', 'C', 'C\u266F/D\u266D', 'D', 'D\u266F/E\u266D', 'E', 'F', 'F\u266F/G\u266D', 'G', 'G\u266F/A\u266D'].map((label, idx) => (
+                        <button
+                            key={label}
+                            className="note-button"
+                            onClick={() => {
+                                const newStyle = getNoteButtonStyle(idx, note);
+                                Object.assign(event.target.style, newStyle);
+                            }}
+                        >
+                            {label}
+                        </button>
+                    ))}
+                </div>
+            </FrameBox>
         </div>
     )
 

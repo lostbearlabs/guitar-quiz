@@ -36,3 +36,9 @@ li {
     width: auto;
 }
 
+button {
+    background-color: lightgray;
+    margin-left: 10px;
+    font-size: 12px;
+}
+

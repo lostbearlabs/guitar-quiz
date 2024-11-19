@@ -1,0 +1,25 @@
+.frame-box {
+    border: 2px solid #000; /* Frame border color */
+    border-radius: 5px;
+    position: relative;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+.frame-label {
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background-color: #f4f4f4;
+    padding: 0 10px;
+    font-weight: bold;
+    font-size: 14px;
+    border: 2px solid #000; /* Same border as the frame */
+    border-radius: 5px;
+}
+
+.frame-content {
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
