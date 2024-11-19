@@ -10,7 +10,7 @@ function NoteChooser({setChord}) {
     const [position, setPosition] = useState(null);
     const [string, setString] = useState(null);
     const [note, setNote] = useState(null);
-    const [fretRange, setFretRange] = useState(null);
+    const [fretRange, setFretRange] = useState('Low');
 
     const handleChangeChord = (newChord) => {
         setChord(newChord);
