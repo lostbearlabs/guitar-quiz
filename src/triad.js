@@ -37,6 +37,7 @@ export function triad(position, inversion, stringSet) {
     }
     if (stringSet === 3) {
         y += 1
+        z += 1
     }
 
     let minPos = Math.min(x, y, z)
