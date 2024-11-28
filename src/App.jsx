@@ -7,8 +7,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 const App = () => {
     return (
-        <Router basename="/guitar-quiz">
-        {/*<Router>*/}
+        // <Router basename="/guitar-quiz">
+        <Router>
             <div>
                 {/* Navigation Bar */}
                 <nav>

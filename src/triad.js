@@ -17,21 +17,38 @@ export function triad(position, inversion, stringSet) {
     let y
     let z
 
-    if (inversion === 0) {
+    // Set the major triad shape based on the inversion chosen
+    let shape = inversion % 3
+    if (shape === 0) {
         // Root position, C shape, 1/3/5
         y = x - 1
         z = y - 2
-    } else if (inversion === 1) {
+    } else if (shape === 1) {
         // First inversion, G shape, 3/5/1
         y = x - 2
         z = y
-    } else {
+    } else if (shape === 2) {
         // Second inversion, E shape, 5/1/3
         // noinspection JSSuspiciousNameCombination
         y = x
         z = y - 1
     }
 
+    // Inversion values 3-5 indicate minor triads, so drop
+    // the appropriate string.
+    if (inversion === 3) {
+        // minor Root position, C shape, 1/b3/5
+        y--
+    } else if (inversion === 4) {
+        // minor First inversion, G shape, b3/5/1
+        x--
+    } else if (inversion === 5) {
+        // minor Second inversion, E shape, 5/1/b3
+        z--
+    }
+
+    // For stringSet 2 or 3, mutate the triad shape as it
+    // crosses the b string.
     if (stringSet === 2) {
         z += 1
     }
@@ -54,9 +71,9 @@ export function getKey(position, inversion, stringSet) {
     let trad = triad(position, inversion, stringSet)
 
     let deltaString = 0
-    if (inversion === 1) {
+    if (inversion === 1 || inversion === 4) {
         deltaString = 2
-    } else if (inversion === 2) {
+    } else if (inversion === 2 || inversion === 5) {
         deltaString = 1
     }
     let string = stringSet + deltaString
