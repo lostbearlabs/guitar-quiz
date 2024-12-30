@@ -9,6 +9,7 @@ function Home() {
                 <ul>
                     <li><Link to="/note">Identify notes</Link></li>
                     <li><Link to="/triad">Identify triads</Link></li>
+                    <li><Link to="/scale">Explore scale degrees</Link></li>
                 </ul>
             </div>
         </div>

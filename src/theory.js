@@ -1,15 +1,28 @@
-const rotateRight = (arr, places) => {
-    const len = arr.length;
-    const offset = places % len;
-    return [...arr.slice(len - offset), ...arr.slice(0, len - offset)];
-};
-
 /**
  * The note values of each empty string, with the convention that
  * A=0, A#=1, ... G#=11
  */
 let emptyStrings = [7, 0, 5, 10, 2, 7]
+
 const NOTES_PER_OCTAVE = 12
+
+/**
+ * The degrees of the major scale.
+ * (Do=0, Re=2, etc.)
+ */
+let degrees = [0, 2, 4, 5, 7, 9, 11]
+
+/**
+ * The colors of each scale degree.
+ * (Do=Red, Re=Orange, etc.)
+ */
+let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'purple']
+
+/**
+ * The display names of each note, with the convention that
+ * A=0, A#=1, ... G#=11
+ */
+export let noteNames = ['A', 'A\u266F/B\u266D', 'B', 'C', 'C\u266F/D\u266D', 'D', 'D\u266F/E\u266D', 'E', 'F', 'F\u266F/G\u266D', 'G', 'G\u266F/A\u266D']
 
 export function triad(position, inversion, stringSet) {
 
@@ -59,14 +72,16 @@ export function triad(position, inversion, stringSet) {
 
     let minPos = Math.min(x, y, z)
     let offset = position - minPos
-    let triad = [x + offset, y + offset, z + offset, -1, -1, -1]
+    let triad = [
+        [stringSet, x + offset, 'black'],
+        [stringSet+1, y + offset, 'black'],
+        [stringSet+2, z + offset, 'black'],
+    ]
 
-    triad = rotateRight(triad, stringSet);
     // console.log("position=" + position + " inversion=" + inversion + " stringSet=" + stringSet + " triad=" + triad + "")
     return triad
 }
 
-//                 {['A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab'].map((label, idx) => (
 export function getKey(position, inversion, stringSet) {
     let trad = triad(position, inversion, stringSet)
 
@@ -77,8 +92,9 @@ export function getKey(position, inversion, stringSet) {
         deltaString = 1
     }
     let string = stringSet + deltaString
-    let key = (emptyStrings[string] + trad[string]) % NOTES_PER_OCTAVE
+    let key = (emptyStrings[string] + trad[deltaString][1]) % NOTES_PER_OCTAVE
 
+    // console.log("trad=", trad)
     // console.log("position=" + position + " inversion=" + inversion + " stringSet=" + stringSet + " key=" + key + " trad=" + trad + " deltaString=" + deltaString + " string=" + string)
 
     return key
@@ -89,7 +105,39 @@ export function getNote(position, string) {
 }
 
 export function singleNoteChord(position, string) {
-    let chord = [-1, -1, -1, -1, -1, -1]
-    chord[string] = position
-    return chord
+    return [[string, position, 'black']]
+}
+
+
+export function showScaleDegrees(key, triadIndex) {
+    let notes = []
+    emptyStrings.forEach( (stringBase, stringIndex) => {
+        for (let fret = 0; fret < 14; fret++) {
+            let degree = (stringBase + fret - key + NOTES_PER_OCTAVE) % NOTES_PER_OCTAVE
+            let degreeIndex = degrees.indexOf(degree)
+            if (degreeIndex !== -1) {
+                if (inTriad(degree, triadIndex)) {
+                    notes.push([stringIndex, fret, colors[degreeIndex]])
+                }
+            }
+        }
+    })
+    return notes
+}
+
+/**
+ * Is the note with degreeIndex part of the given triad?
+ * For triads, 0=all, 1=1/3/5, 2=2/4/6, etc.
+ */
+function inTriad(degree, triadIndex) {
+    console.log(degree, triadIndex)
+    if (triadIndex===0) return true
+
+    let triadNotes = [
+        degrees[triadIndex-1 % degrees.length],
+        degrees[(triadIndex+1) % degrees.length],
+        degrees[(triadIndex+3) % degrees.length],
+    ]
+
+    return triadNotes.includes(degree)
 }

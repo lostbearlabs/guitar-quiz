@@ -4,7 +4,7 @@ import Fretboard from "./Fretboard.jsx";
 import TriadChooser from "./TriadChooser.jsx";
 
 function TriadQuiz() {
-    const [chord, setChord] = useState([-1, -1, -1, -1, -1, -1]);
+    const [chord, setChord] = useState([]);
 
     return (
         <div>

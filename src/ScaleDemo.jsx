@@ -1,18 +1,18 @@
 import {useState} from 'react'
 import './App.css'
 import Fretboard from "./Fretboard.jsx";
-import NoteChooser from "./NoteChooser.jsx";
+import ScaleChooser from "./ScaleChooser.jsx";
 
-function NoteQuiz() {
+function ScaleDemo() {
     const [chord, setChord] = useState([]);
 
     return (
         <div>
-            <div>Generate a note, and then see if you can identify it.</div>
+            <div>Explore scale degrees!</div>
             <Fretboard played={chord}/>
-            <NoteChooser setChord={setChord}/>
+            <ScaleChooser onChordChange={setChord}/>
         </div>
     )
 }
 
-export default NoteQuiz
+export default ScaleDemo

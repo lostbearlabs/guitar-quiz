@@ -1,8 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
 import {useEffect} from 'react';
-import {triad} from "./triad.js";
-import {getKey} from "./triad.js";
+import {triad, getKey, noteNames} from "./theory.js";
 import FrameBox from "./FrameBox.jsx";
 
 function TriadChooser({setChord}) {
@@ -145,11 +144,12 @@ function TriadChooser({setChord}) {
                     ))}
                 </div>
                 <div style={{marginTop: '10px'}}>
-                    {['A', 'A\u266F/B\u266D', 'B', 'C', 'C\u266F/D\u266D', 'D', 'D\u266F/E\u266D', 'E', 'F', 'F\u266F/G\u266D', 'G', 'G\u266F/A\u266D'].map((label, idx) => (
+                    {noteNames.map((label, idx) => (
                         <button
                             key={label}
                             className="key-button"
                             onClick={() => {
+                                // console.log(label, idx, key);
                                 const newStyle = getKeyButtonStyle(idx, inversion);
                                 Object.assign(event.target.style, newStyle);
                             }}

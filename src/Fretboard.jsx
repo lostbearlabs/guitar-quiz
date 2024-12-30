@@ -65,13 +65,18 @@ const Fretboard = ({played}) => {
         const noteRadius = 8;
         const emptyRadius = 6;
         ctx.font = '16px Arial';
-        played.forEach((fret, stringIndex) => {
+        played.forEach(([stringIndex, fret, color]) => {
+            ctx.fillStyle = color
             const stringY = stringSpacing * (numberOfStrings - stringIndex);
             if (fret === 0) {
                 // Draw an open circle for open strings
                 ctx.beginPath();
                 ctx.arc(margin - emptyRadius - 5, stringY, emptyRadius, 0, Math.PI * 2);
                 ctx.stroke();
+                // (But do fill in the circle if we're showing scale degrees with color)
+                if (color !== 'black') {
+                    ctx.fill();
+                }
             } else if (fret > 0 && fret <= 14) {
                 const fretX = margin + fretSpacing * (fret - 0.5);
                 ctx.beginPath();

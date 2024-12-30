@@ -1,8 +1,8 @@
 import React from 'react';
 import {useState} from 'react';
 import {useEffect} from 'react';
-import {getNote} from "./triad.js";
-import {singleNoteChord} from "./triad.js";
+import {getNote} from "./theory.js";
+import {singleNoteChord, noteNames} from "./theory.js";
 import FrameBox from "./FrameBox.jsx";
 
 function NoteChooser({setChord}) {
@@ -96,7 +96,7 @@ function NoteChooser({setChord}) {
 
             <FrameBox label='Identify Note'>
                 <div style={{marginTop: '20px'}}>
-                    {['A', 'A\u266F/B\u266D', 'B', 'C', 'C\u266F/D\u266D', 'D', 'D\u266F/E\u266D', 'E', 'F', 'F\u266F/G\u266D', 'G', 'G\u266F/A\u266D'].map((label, idx) => (
+                    {noteNames.map((label, idx) => (
                         <button
                             key={label}
                             className="note-button"
