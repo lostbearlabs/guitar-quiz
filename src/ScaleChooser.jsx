@@ -52,7 +52,7 @@ function ScaleChooser({onChordChange}) {
                         </div>
 
                         <div style={{paddingLeft: '125px', verticalAlign: 'middle'}}>
-                            <label htmlFor="chord">Chord: </label>
+                            <label htmlFor="chord">Triad: </label>
                             <select id="chord" value={chordSelection} onChange={(e) => setChordSelection(e.target.selectedIndex)}>
                                 <option value="0">All</option>
                                 <option value="1">I</option>

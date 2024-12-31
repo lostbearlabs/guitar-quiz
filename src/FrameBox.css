@@ -1,20 +1,54 @@
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+    .frame-box {
+        border: 2px solid #fff;
+        background-color: #333;
+    }
+
+    .frame-label {
+        background-color: #333; /* Match frame background for dark mode */
+        color: #fff;
+        border: 2px solid #fff;
+    }
+
+    .frame-content {
+        background-color: #333;
+        color: #ddd;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .frame-box {
+        border: 2px solid #000;
+        background-color: #f4f4f4;
+    }
+
+    .frame-label {
+        background-color: #f4f4f4;
+        border: 2px solid #000; /* Same border as the frame */
+    }
+
+    .frame-content {
+        background-color: #f4f4f4;
+        color: #000;
+    }
+}
+
+
 .frame-box {
-    border: 2px solid #000; /* Frame border color */
     border-radius: 5px;
     position: relative;
     margin: 20px;
-    background-color: #f4f4f4;
+
 }
 
 .frame-label {
     position: absolute;
     top: -12px;
     left: 10px;
-    background-color: #f4f4f4;
     padding: 0 10px;
     font-weight: bold;
     font-size: 14px;
-    border: 2px solid #000; /* Same border as the frame */
     border-radius: 5px;
 }
 
