@@ -1,12 +1,19 @@
+<!-- 404.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="refresh" content="0; url=/guitar-quiz" />
+    <meta charset="UTF-8" />
+    <title>Not Found</title>
 </head>
 <body>
-<p>Redirecting...</p>
-<script>
-    window.location.href = "/guitar-quiz";
+<script type="text/javascript">
+    var path = window.location.pathname.replace('/guitar-quiz', '');
+    var search = window.location.search;
+    // Convert e.g. /scale?option=foo -> #/scale?option=foo
+    var newUrl = window.location.origin + '/guitar-quiz/#' + path + search;
+
+    // redirect
+    window.location.replace(newUrl);
 </script>
 </body>
 </html>

@@ -130,7 +130,7 @@ export function showScaleDegrees(key, triadIndex) {
  * For triads, 0=all, 1=1/3/5, 2=2/4/6, etc.
  */
 function inTriad(degree, triadIndex) {
-    console.log(degree, triadIndex)
+    // console.log(degree, triadIndex)
     if (triadIndex===0) return true
 
     let triadNotes = [
